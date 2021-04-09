@@ -1,4 +1,4 @@
-# Projekt PAMO
+# Pamok
 
 ### Twórcy
 
