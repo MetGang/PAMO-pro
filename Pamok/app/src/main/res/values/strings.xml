@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Pamok</string>
+    <string name="game_btn">Start game</string>
+    <string name="settings_btn">Settings</string>
+    <string name="quit_btn">Quit</string>
+    <string name="leaderboard_btn">Leaderboard</string>
+    <string name="back_btn">Back</string>
+    <string name="settings_label">Settings</string>
+    <string name="leaderboard_label">Leaderboard</string>
+    <string name="summary_label">Summary</string>
 </resources>
