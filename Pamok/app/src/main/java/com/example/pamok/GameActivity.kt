@@ -3,9 +3,24 @@ package com.example.pamok
 import android.os.Bundle
 
 class GameActivity : FullScreenActivity() {
+
+    private lateinit var gameView: GameView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_game)
+        gameView = GameView(this)
+
+        setContentView(gameView)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        gameView.pause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        gameView.resume()
     }
 }
