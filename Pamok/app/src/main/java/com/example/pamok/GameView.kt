@@ -21,29 +21,22 @@ class GameView : SurfaceView, Runnable {
     private var spawnTime: Int = 1 * maxFPS
     private var thread: Thread? = null
 
-    constructor(context: Context) : super(context) {
-        
-    }
+    constructor(context: Context) : super(context)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val x: Int = event.x.toInt()
         val y: Int = event.y.toInt()
-        var toRemove: MutableList<TargetObject> = mutableListOf()
 
         targetsList.forEach {
             val r: Rect = it.getBounds()
 
-            if (r.contains(x, y))
-            {
-                if (it.getPixel(x, y) != Color.TRANSPARENT)
-                {
-                    toRemove.add(it)
-                }
+            if (r.contains(x, y) && it.getPixel(x, y) != Color.TRANSPARENT) {
+                it.kill()
             }
         }
 
-        toRemove.forEach{
-            targetsList.remove(it)
+        targetsList.removeIf {
+            !it.isAlive()
         }
 
         return true
@@ -52,18 +45,6 @@ class GameView : SurfaceView, Runnable {
     fun pause() {
         running = false
         thread!!.join()
-    }
-
-    private fun render(canvas: Canvas) {
-        // Background
-        canvas.drawRGB(60, 60, 60)
-        
-        // Targets
-        targetsList.forEach {
-            it.image?.bounds = it.getBounds()
-            it.image?.draw(canvas)
-            it.move()
-        }
     }
 
     fun resume() {
@@ -96,8 +77,8 @@ class GameView : SurfaceView, Runnable {
     }
 
     private fun update() {
-        if (currentSpawnTime == 0)
-        {
+        // Targets spawning
+        if (currentSpawnTime-- == 0) {
             targetsList.add(TargetObject(
                 Resources.getSystem().displayMetrics.widthPixels / 2,
                 Resources.getSystem().displayMetrics.heightPixels / 2,
@@ -106,12 +87,25 @@ class GameView : SurfaceView, Runnable {
 
             currentSpawnTime = spawnTime
 
-            if (spawnTime > 1)
-            {
+            if (spawnTime > 1) {
                 --spawnTime
             }
         }
-        
-        --currentSpawnTime
+
+        // Targets movement
+        targetsList.forEach {
+            it.move()
+        }
+    }
+
+    private fun render(canvas: Canvas) {
+        // Background
+        canvas.drawRGB(60, 60, 60)
+
+        // Targets
+        targetsList.forEach {
+            it.image?.bounds = it.getBounds()
+            it.image?.draw(canvas)
+        }
     }
 }
