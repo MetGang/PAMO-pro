@@ -17,10 +17,14 @@ class MainActivity : FullScreenActivity() {
 
     fun openLeaderboard(view: View) {
         startActivity(Intent(this, LeaderboardActivity::class.java))
+
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
     fun openSettings(view: View) {
         startActivity(Intent(this, SettingsActivity::class.java))
+
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     fun quitApp(view: View) {

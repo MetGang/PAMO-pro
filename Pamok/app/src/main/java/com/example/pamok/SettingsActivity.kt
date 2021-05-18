@@ -12,5 +12,13 @@ class SettingsActivity : FullScreenActivity() {
 
     fun backToMenu(view: View) {
         finishAndRemoveTask()
+
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
+
+    override fun finish() {
+        super.finish()
+
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 }
