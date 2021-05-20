@@ -1,11 +1,12 @@
 package com.example.pamok
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 
-open class FullScreenActivity : AppCompatActivity() {
+open class BasicActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -17,5 +18,9 @@ open class FullScreenActivity : AppCompatActivity() {
         window.decorView.apply {
             systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
         }
+    }
+
+    fun playSound(resId: Int) {
+        MediaPlayer.create(this, resId).start()
     }
 }

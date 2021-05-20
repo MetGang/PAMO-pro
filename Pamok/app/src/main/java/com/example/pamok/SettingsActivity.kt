@@ -3,7 +3,7 @@ package com.example.pamok
 import android.os.Bundle
 import android.view.View
 
-class SettingsActivity : FullScreenActivity() {
+class SettingsActivity : BasicActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         

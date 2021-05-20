@@ -2,7 +2,7 @@ package com.example.pamok
 
 import android.os.Bundle
 
-class GameActivity : FullScreenActivity() {
+class GameActivity : BasicActivity() {
 
     private lateinit var gameView: GameView
 

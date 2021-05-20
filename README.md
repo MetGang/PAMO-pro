@@ -1,10 +1,10 @@
 # Pamok
 
-### Twórcy
+### Creators
 
 * [Patryk Kośmider](https://github.com/MetGang)
 * [Krzysztof Marek](https://github.com/KontoAlternatywne)
 
-### Śledzenie postępów prac
+### Progress tracking
 
-[Tablica Trello](https://trello.com/b/3CBuFOMA/pamo)
+[Trello](https://trello.com/b/3CBuFOMA/pamo)

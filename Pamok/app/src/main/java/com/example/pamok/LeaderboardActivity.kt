@@ -3,7 +3,7 @@ package com.example.pamok
 import android.os.Bundle
 import android.view.View
 
-class LeaderboardActivity : FullScreenActivity() {
+class LeaderboardActivity : BasicActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
