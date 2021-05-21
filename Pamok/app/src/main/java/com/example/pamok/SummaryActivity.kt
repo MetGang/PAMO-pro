@@ -11,6 +11,8 @@ class SummaryActivity : BasicActivity() {
     }
 
     fun backToMenu(view: View) {
+        playSound(R.raw.btn_click)
+
         finishAndRemoveTask()
     }
 }

@@ -11,6 +11,8 @@ class SettingsActivity : BasicActivity() {
     }
 
     fun backToMenu(view: View) {
+        playSound(R.raw.btn_click)
+
         finishAndRemoveTask()
 
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)

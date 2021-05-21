@@ -11,6 +11,8 @@ class LeaderboardActivity : BasicActivity() {
     }
 
     fun backToMenu(view: View) {
+        playSound(R.raw.btn_click)
+
         finishAndRemoveTask()
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

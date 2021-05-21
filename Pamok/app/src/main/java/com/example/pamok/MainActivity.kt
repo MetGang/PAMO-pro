@@ -12,22 +12,30 @@ class MainActivity : BasicActivity() {
     }
 
     fun startGame(view: View) {
+        playSound(R.raw.btn_click)
+
         startActivity(Intent(this, GameActivity::class.java))
     }
 
     fun openLeaderboard(view: View) {
+        playSound(R.raw.btn_click)
+
         startActivity(Intent(this, LeaderboardActivity::class.java))
 
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
     fun openSettings(view: View) {
+        playSound(R.raw.btn_click)
+
         startActivity(Intent(this, SettingsActivity::class.java))
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     fun quitApp(view: View) {
+        playSound(R.raw.btn_click)
+
         finishAndRemoveTask()
     }
 }
