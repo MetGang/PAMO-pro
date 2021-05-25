@@ -8,4 +8,8 @@
     <string name="settings_label">Settings</string>
     <string name="leaderboard_label">Leaderboard</string>
     <string name="summary_label">Summary</string>
+    <string name="record0Def">1. ---</string>
+    <string name="record1Def">2. ---</string>
+    <string name="record2Def">3. ---</string>
+    <string name="setting_mute">Mute</string>
 </resources>

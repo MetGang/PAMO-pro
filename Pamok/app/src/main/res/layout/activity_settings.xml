@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_right"
     tools:context=".SettingsActivity">
 
     <TextView
@@ -12,8 +13,26 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/settings_label"
+        android:textColor="@color/white"
         android:textSize="48sp"
         android:padding="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_above="@+id/mute_switch"
+        android:text="@string/setting_mute"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:padding="16dp" />
+
+    <Switch
+        android:id="@+id/mute_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Button
         android:id="@+id/back_btn"
@@ -22,7 +41,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_margin="16dp"
+        android:backgroundTint="@color/sky"
         android:text="@string/back_btn"
         android:onClick="backToMenu" />
+
 
 </RelativeLayout>

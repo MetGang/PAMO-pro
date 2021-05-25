@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_center"
     tools:context=".MainActivity">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/app_name"
+        android:textColor="@color/white"
         android:textSize="48sp"
         android:padding="16dp" />
 
@@ -21,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_above="@+id/leaderboard_btn"
+        android:backgroundTint="@color/sky"
         android:text="@string/game_btn"
         android:onClick="startGame" />
 
@@ -29,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:backgroundTint="@color/sky"
         android:text="@string/leaderboard_btn"
         android:onClick="openLeaderboard" />
 
@@ -38,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_below="@+id/leaderboard_btn"
+        android:backgroundTint="@color/sky"
         android:text="@string/settings_btn"
         android:onClick="openSettings" />
 
@@ -47,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_below="@+id/settings_btn"
+        android:backgroundTint="@color/sky"
         android:text="@string/quit_btn"
         android:onClick="quitApp" />
 

@@ -21,6 +21,8 @@ open class BasicActivity : AppCompatActivity() {
     }
 
     fun playSound(resId: Int) {
-        MediaPlayer.create(this, resId).start()
+        if (!GlobalSettings.muted) {
+            MediaPlayer.create(this, resId).start()
+        }
     }
 }

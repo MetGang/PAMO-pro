@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_left"
     tools:context=".LeaderboardActivity">
 
     <TextView
@@ -12,7 +13,40 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/leaderboard_label"
+        android:textColor="@color/white"
         android:textSize="48sp"
+        android:padding="16dp" />
+
+    <TextView
+        android:id="@+id/record0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_above="@id/record1"
+        android:text="@string/record0Def"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:padding="16dp" />
+
+    <TextView
+        android:id="@+id/record1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/record1Def"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:padding="16dp" />
+
+    <TextView
+        android:id="@+id/record2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/record1"
+        android:text="@string/record2Def"
+        android:textColor="@color/white"
+        android:textSize="28sp"
         android:padding="16dp" />
 
     <Button
@@ -22,6 +56,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_margin="16dp"
+        android:backgroundTint="@color/sky"
         android:text="@string/back_btn"
         android:onClick="backToMenu" />
 

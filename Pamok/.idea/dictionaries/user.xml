@@ -2,6 +2,7 @@
   <dictionary name="user">
     <words>
       <w>coord</w>
+      <w>gson</w>
       <w>leaderboard</w>
     </words>
   </dictionary>
