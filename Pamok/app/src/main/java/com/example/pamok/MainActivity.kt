@@ -21,8 +21,6 @@ class MainActivity : BasicActivity() {
         playSound(R.raw.btn_click)
 
         startActivity(Intent(this, GameActivity::class.java))
-
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
     fun openLeaderboard(view: View) {
