@@ -2,11 +2,7 @@ package com.example.pamok
 
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
-import android.util.Log
+import android.graphics.*
 import android.view.MotionEvent
 import android.view.SurfaceView
 
@@ -15,6 +11,7 @@ class GameView : SurfaceView, Runnable {
     private val maxFPS: Int = 60
     private val framePeriod: Int = 1000 / maxFPS
     private val targetsList: MutableList<TargetObject> = mutableListOf()
+    private var touchPoint: Point? = null
 
     private var currentSpawnTime: Int = 0
     private var running: Boolean = false
@@ -24,22 +21,13 @@ class GameView : SurfaceView, Runnable {
     constructor(context: Context) : super(context)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        val x: Int = event.x.toInt()
-        val y: Int = event.y.toInt()
+        if (touchPoint == null) {
+            touchPoint = Point(event.x.toInt(), event.y.toInt())
 
-        targetsList.forEach {
-            val r: Rect = it.getBounds()
-
-            if (r.contains(x, y) && it.getPixel(x, y) != Color.TRANSPARENT) {
-                it.kill()
-            }
+            return true
         }
 
-        targetsList.removeIf {
-            !it.isAlive()
-        }
-
-        return true
+        return false
     }
 
     fun pause() {
@@ -77,6 +65,23 @@ class GameView : SurfaceView, Runnable {
     }
 
     private fun update() {
+        // Targets killing
+        if (touchPoint != null) {
+            targetsList.forEach {
+                val r: Rect = it.getBounds()
+
+                if (r.contains(touchPoint!!.x, touchPoint!!.y) && it.getPixel(touchPoint!!.x, touchPoint!!.y) != Color.TRANSPARENT) {
+                    it.kill()
+                }
+            }
+
+            targetsList.removeIf {
+                !it.isAlive()
+            }
+
+            touchPoint = null
+        }
+
         // Targets spawning
         if (currentSpawnTime-- == 0) {
             targetsList.add(TargetObject(
@@ -86,10 +91,6 @@ class GameView : SurfaceView, Runnable {
             ))
 
             currentSpawnTime = spawnTime
-
-            if (spawnTime > 1) {
-                --spawnTime
-            }
         }
 
         // Targets movement
