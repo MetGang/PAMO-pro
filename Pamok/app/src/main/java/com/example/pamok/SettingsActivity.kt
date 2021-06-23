@@ -13,6 +13,8 @@ class SettingsActivity : BasicActivity() {
         mute_switch.isChecked = GlobalSettings.muted
 
         mute_switch.setOnCheckedChangeListener { _, isChecked ->
+            playSound(R.raw.switch_click)
+
             GlobalSettings.muted = isChecked
         }
     }
