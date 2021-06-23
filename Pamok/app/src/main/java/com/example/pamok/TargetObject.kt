@@ -2,14 +2,11 @@ package com.example.pamok
 
 import android.content.res.Resources
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toBitmap
-import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
@@ -41,47 +38,23 @@ class TargetObject(startX: Int, startY: Int, resources: Resources) {
         return Rect(x - width / 2, y - height / 2, x + width / 2, y + height / 2)
     }
 
-    private fun getPixelColor(coordX: Int, coordY: Int): Int? {
-        val r: Rect = getBounds()
-        return image?.toBitmap(width, height)?.getPixel(coordX - r.left, coordY - r.top)
-    }
-
     fun intersectsWith(line: Pair<Point?, Point?>): Boolean {
-        val r: Rect = getBounds()
-        val lineX: Int = abs(line.second!!.x - line.first!!.x)
-        val lineY: Int = line.second!!.y - line.first!!.y
-        val ratio: Double = lineY / lineX.toDouble()
-        val points: MutableList<Point> = mutableListOf()
-        for (i: Int in 1..lineX) {
-            val point = Point(line.first!!.x + if (line.first!!.x > line.second!!.x) -i else i, line.first!!.y + (i * ratio).roundToInt())
-            if (r.contains(point.x, point.y) && isEdgePixel(point.x, point.y)) {
-                points.add(point)
-            }
-        }
-        return points.count() > 1
+        var m: Double = (line.second!!.y - line.first!!.y) / (line.second!!.x - line.first!!.x).toDouble()
+        m = if (m == 0.0) 1.0 else m
+        val a: Double = 1 + m.pow(2)
+        val b: Double = 2 * (-x * m * (m * line.first!!.x + line.first!!.y - y))
+        val c: Double = x.toDouble().pow(2) + m.pow(2) * line.first!!.x.toDouble().pow(2) + line.first!!.y.toDouble().pow(2) - 2 * m * line.first!!.x * (line.first!!.y + y) + y.toDouble().pow(2) + 2 * line.first!!.y * y - (width / 2.0).pow(2)
+        val top = if (line.first!!.y < line.second!!.y) line.first!!.y else line.second!!.y
+        val bottom = if (line.first!!.y < line.second!!.y) line.second!!.y else line.first!!.y
+        val left = if (line.first!!.x < line.second!!.x) line.first!!.x else line.second!!.x
+        val right = if (line.first!!.x < line.second!!.x) line.second!!.x else line.first!!.x
+        return (b.pow(2) - (4 * a * c) > 0)
+                && (top <= y + height / 4) && (bottom >= y - height / 4)
+                && (left <= x + width / 4) && (right >= x - width / 4)
     }
 
     fun isCut(): Boolean {
         return isCut
-    }
-
-    private fun isEdgePixel(coordX: Int, coordY: Int): Boolean {
-        if (getPixelColor(coordX, coordY) != Color.TRANSPARENT) {
-            val surrounding: MutableList<Int?> = mutableListOf()
-            surrounding.add(getPixelColor(coordX - 1, coordY - 1))
-            surrounding.add(getPixelColor(coordX, coordY - 1))
-            surrounding.add(getPixelColor(coordX + 1, coordY - 1))
-            surrounding.add(getPixelColor(coordX - 1, coordY))
-            surrounding.add(getPixelColor(coordX + 1, coordY))
-            surrounding.add(getPixelColor(coordX - 1, coordY + 1))
-            surrounding.add(getPixelColor(coordX, coordY + 1))
-            surrounding.add(getPixelColor(coordX + 1, coordY + 1))
-            return surrounding.any {
-                it == Color.TRANSPARENT || it == null
-            }
-        } else {
-            return false
-        }
     }
 
     fun move(): Boolean {

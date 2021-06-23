@@ -89,7 +89,7 @@ class GameView(context: Context) : SurfaceView(context), Runnable, GestureDetect
                 }
             }
         }
-        //TODO: "you lost"
+        //TODO: "you lost" + points count
     }
 
     private fun update() {
@@ -99,8 +99,12 @@ class GameView(context: Context) : SurfaceView(context), Runnable, GestureDetect
                     it.cut()
                 }
             }
-            points += targetsList.count{
+            val combo = targetsList.count{
                 it.isCut()
+            }
+            points += combo
+            if (combo > 1) {
+                //TODO: show combo counter
             }
             targetsList.removeIf {
                 it.isCut()
