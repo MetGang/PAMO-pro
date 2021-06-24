@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.SurfaceView
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GestureDetectorCompat
 
 class GameView(context: Context) : SurfaceView(context), Runnable, GestureDetector.OnGestureListener {
@@ -14,7 +15,7 @@ class GameView(context: Context) : SurfaceView(context), Runnable, GestureDetect
     private var currentSpawnTime: Int = 0
     private val framePeriod: Int = 1000 / maxFPS
     private var flingLine: Pair<Point?, Point?> = Pair(null, null)
-    private val maxTargets: Int = 1
+    private val maxTargets: Int = 10
     private var mDetector: GestureDetectorCompat = GestureDetectorCompat(context, this)
     private var points: Int = 0
     private var running: Boolean = false
@@ -22,29 +23,50 @@ class GameView(context: Context) : SurfaceView(context), Runnable, GestureDetect
     private var targetsList: MutableList<TargetObject> = mutableListOf()
     private var thread: Thread? = null
 
+    /**
+     * Empty function to comply GestureDetector.OnGestureListener interface
+     */
     override fun onDown(e: MotionEvent?): Boolean {
         return true
     }
 
+    /**
+     * Gets the movement of user on screen as cutting line between two points (start point and end point)
+     */
     override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
         flingLine = Pair(Point(event1.x.toInt(), event1.y.toInt()), Point(event2.x.toInt(), event2.y.toInt()))
         return true
     }
 
+    /**
+     * Empty function to comply GestureDetector.OnGestureListener interface
+     */
     override fun onLongPress(e: MotionEvent?) {
     }
 
+    /**
+     * Empty function to comply GestureDetector.OnGestureListener interface
+     */
     override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
         return true
     }
 
+    /**
+     * Empty function to comply GestureDetector.OnGestureListener interface
+     */
     override fun onShowPress(e: MotionEvent?) {
     }
 
+    /**
+     * Empty function to comply GestureDetector.OnGestureListener interface
+     */
     override fun onSingleTapUp(e: MotionEvent?): Boolean {
         return true
     }
 
+    /**
+     * Checks what gesture user used on screen and executes corresponding event
+     */
     override fun onTouchEvent(event: MotionEvent): Boolean {
         return if (mDetector.onTouchEvent(event)) {
             true
@@ -57,7 +79,6 @@ class GameView(context: Context) : SurfaceView(context), Runnable, GestureDetect
         running = false
         thread!!.join()
     }
-
 
     private fun render(canvas: Canvas) {
         canvas.drawRGB(60, 60, 60)
@@ -95,7 +116,8 @@ class GameView(context: Context) : SurfaceView(context), Runnable, GestureDetect
     private fun update() {
         if (flingLine.first != null) {
             targetsList.forEach {
-                if (it.intersectsWith(flingLine)) {
+                if (it.intersectsWith(flingLine.first!!.x, flingLine.first!!.y,
+                        flingLine.second!!.x, flingLine.second!!.y)) {
                     it.cut()
                 }
             }
@@ -117,7 +139,7 @@ class GameView(context: Context) : SurfaceView(context), Runnable, GestureDetect
                 targetsList.add(TargetObject(
                     Resources.getSystem().displayMetrics.widthPixels / 2,
                     Resources.getSystem().displayMetrics.heightPixels,
-                    context.resources
+                    ResourcesCompat.getDrawable(resources, R.drawable.target_24, null)!!
                 ))
             }
             currentSpawnTime = spawnTime--
