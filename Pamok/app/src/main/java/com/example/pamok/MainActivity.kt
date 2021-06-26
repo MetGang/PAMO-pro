@@ -3,12 +3,6 @@ package com.example.pamok
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import java.io.InputStream
-import java.nio.charset.Charset
-
-fun InputStream.readTextAndClose(charset: Charset = Charsets.UTF_8): String {
-    return this.bufferedReader(charset).use { it.readText() }
-}
 
 class MainActivity : BasicActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

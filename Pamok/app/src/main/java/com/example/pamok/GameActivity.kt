@@ -1,6 +1,10 @@
 package com.example.pamok
 
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Typeface
 import android.os.Bundle
+import androidx.core.content.res.ResourcesCompat
 
 class GameActivity : BasicActivity() {
 
@@ -9,7 +13,17 @@ class GameActivity : BasicActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        gameView = GameView(this)
+        // Preparing paint for drawing text in game
+        val typeface = ResourcesCompat.getFont(this, R.font.jamma)
+        val fontPaint = Paint()
+        fontPaint.color = Color.WHITE
+        fontPaint.textSize = 48.0f
+        fontPaint.typeface = typeface
+
+        // Actual game logic and render creation
+        gameView = GameView(this, fontPaint) {
+            playSound(it)
+        }
 
         setContentView(gameView)
     }
