@@ -24,7 +24,7 @@ fun createTarget(resources: Resources): TargetObject {
 }
 
 @SuppressLint("ViewConstructor")
-class GameView(context: Context, fontPaint: Paint, playSound: (Int) -> Unit) : SurfaceView(context), Runnable, GestureDetector.OnGestureListener {
+class GameView(context: Context, fontPaint: Paint, playSound: (Int) -> Unit, handleGameOver: () -> Unit) : SurfaceView(context), Runnable, GestureDetector.OnGestureListener {
     private val maxFPS: Int = 60
     private var currentSpawnTime: Int = 0
     private val framePeriod: Int = 1000 / maxFPS
@@ -37,8 +37,9 @@ class GameView(context: Context, fontPaint: Paint, playSound: (Int) -> Unit) : S
     private var spawnTime: Int = 1 * maxFPS
     private var targetsList: MutableList<TargetObject> = mutableListOf()
     private var thread: Thread? = null
-    private val playSound: (Int) -> Unit = playSound
     private val fontPaint: Paint = fontPaint
+    private val playSound: (Int) -> Unit = playSound
+    private val handleGameOver: () -> Unit = handleGameOver
 
     // Empty function to comply GestureDetector.OnGestureListener interface
     override fun onDown(e: MotionEvent?): Boolean {
@@ -155,6 +156,8 @@ class GameView(context: Context, fontPaint: Paint, playSound: (Int) -> Unit) : S
         targetsList.forEach {
             if (!it.move()) {
                 running = false
+
+                handleGameOver()
             }
         }
     }

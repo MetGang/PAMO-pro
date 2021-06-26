@@ -1,5 +1,6 @@
 package com.example.pamok
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
@@ -21,9 +22,13 @@ class GameActivity : BasicActivity() {
         fontPaint.typeface = typeface
 
         // Actual game logic and render creation
-        gameView = GameView(this, fontPaint) {
-            playSound(it)
-        }
+        gameView = GameView(this, fontPaint,
+            { playSound(it) },
+            {
+                startActivity(Intent(this, SummaryActivity::class.java))
+                finishAndRemoveTask()
+            }
+        )
 
         setContentView(gameView)
     }
