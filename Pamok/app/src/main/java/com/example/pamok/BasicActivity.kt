@@ -22,7 +22,7 @@ open class BasicActivity : AppCompatActivity() {
 
     // Auxiliary function for playing sounds
     fun playSound(resId: Int) {
-        if (!GlobalSettings.muted) {
+        if (!Globals.muted) {
             MediaPlayer.create(this, resId).start()
         }
     }

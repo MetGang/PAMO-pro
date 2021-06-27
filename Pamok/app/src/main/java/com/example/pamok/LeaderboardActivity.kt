@@ -1,6 +1,7 @@
 package com.example.pamok
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import com.google.gson.Gson
@@ -15,11 +16,14 @@ class LeaderboardActivity : BasicActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val prefs = getSharedPreferences("LEADERBOARD", Context.MODE_PRIVATE)
+        val recordsString = prefs.getString("records", "[]")
+
         val gson = Gson()
         val type = object : TypeToken<List<LeaderboardRecord?>?>() {}.type
 
         val rawRecords: List<LeaderboardRecord> = gson.fromJson(
-            intent.getStringExtra("recordsString"),
+            recordsString,
             type
         )
 

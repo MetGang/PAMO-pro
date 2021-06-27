@@ -1,5 +1,6 @@
 package com.example.pamok
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -18,14 +19,9 @@ class MainActivity : BasicActivity() {
     }
 
     fun openLeaderboard(view: View) {
-        val recordsString = assets.open("leaderboard.json").readTextAndClose()
-
         playSound(R.raw.btn_click)
 
-        startActivity(
-            Intent(this, LeaderboardActivity::class.java)
-                .putExtra("recordsString", recordsString)
-        )
+        startActivity(Intent(this, LeaderboardActivity::class.java))
 
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }

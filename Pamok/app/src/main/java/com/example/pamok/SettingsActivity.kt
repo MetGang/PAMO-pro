@@ -10,12 +10,12 @@ class SettingsActivity : BasicActivity() {
         
         setContentView(R.layout.activity_settings)
 
-        mute_switch.isChecked = GlobalSettings.muted
+        mute_switch.isChecked = Globals.muted
 
         mute_switch.setOnCheckedChangeListener { _, isChecked ->
             playSound(R.raw.switch_click)
 
-            GlobalSettings.muted = isChecked
+            Globals.muted = isChecked
         }
     }
 

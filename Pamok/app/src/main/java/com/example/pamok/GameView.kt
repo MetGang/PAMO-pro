@@ -156,7 +156,7 @@ class GameView(context: Context, fontPaint: Paint, playSound: (Int) -> Unit, han
         targetsList.forEach {
             if (!it.move()) {
                 running = false
-
+                Globals.obtainedPoints = points
                 handleGameOver()
             }
         }
